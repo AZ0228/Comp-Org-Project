@@ -5,6 +5,8 @@ module program_counter(
     input [31:0] pc_out,
     );
 
+    //hello
+
     always @(posedge clock or negedge reset) begin
         if (reset == 0) begin
             pc_out <= 0;
