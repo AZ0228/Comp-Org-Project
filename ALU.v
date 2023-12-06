@@ -11,7 +11,7 @@ always @(left, right, control)
         4'b0000: out = left & right; 
         4'b0001: out = left | right; 
         4'b0010: out = left + right; 
-        4'b0110: out = left - right; 
+        4'b0110: out = left - right; //hello
         4'b0111: out = left < right; 
         4'b1100: out = left ~| right; 
        endcase
