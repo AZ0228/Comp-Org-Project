@@ -1,0 +1,7 @@
+add - 1
+halt - 2
+load - 3
+store - 4
+clear - 5
+skip - 6
+jump - 7 
