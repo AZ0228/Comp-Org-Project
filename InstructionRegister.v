@@ -1,9 +1,9 @@
 module instruction_register(
-	input clock,
-	input reset,
-	input [31:0] register_input,
-	output reg [3:0] opcode, // 4 bit opcode
-	output reg [29:0] target_address,
+  input clock,
+  input reset,
+  input [31:0] register_input,
+  output reg [3:0] opcode,
+  output reg [27:0] target_address
 	);
 
 	reg [31:0] temp;
@@ -21,7 +21,7 @@ module instruction_register(
 
 	always @(posedge clock)
 	begin
-		opcode <= register_input[31:28];
-		target_address <= register_input[29:0];
+      opcode <= register_input[32:28];
+      target_address <= register_input[26:0];
 	end
 endmodule
