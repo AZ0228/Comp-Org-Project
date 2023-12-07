@@ -1,33 +1,50 @@
-module test_alu;
+`timescale 1ns/1ps
 
-	//Inputs
-	reg [31:0] left,
-	reg [31:0] right,
-	reg [3:0] control;
+module ALU_tb;
 
-	//Outputs
-	wire [31:0] out;
+  reg [31:0] left;
+  reg [31:0] right;
+  reg [3:0] control;
+  wire [31:0] out;
 
-	//Actual code
-	integer i;
+  // Instantiate the ALU module
+  ALU dut (
+    .left(left),
+    .right(right),
+    .control(control),
+    .out(out)
+  );
 
-	alu test(
-			left, right, // 32-bit Inputs
-			control, // ALU Control
-			out // 32-bit Output
-			);
-			initial begin
-			$dumpfile("alu_dump.vcd");
-			$dumpvars(0, test);
+  // Initial block to apply inputs
+  initial begin
+    $dumpfile("ALU_tb.vcd");
+    $dumpvars(0, ALU_tb);
 
-			left = 32'h0000_0000; // 0
-			right = 32'h0000_0000; // 0
-			control = 4'b0010; // left + right
-			#10
-			if ( out != 32'h0 | zero !=='b1)
-				$display("\t%s0 + 0 failed.\tExpected out = 0x%0x, z = %b%s","\033[0;31m", 32'h0, 1'b1, "\033[0m");
+    // Test case 1: Bitwise AND
+    left = 32'h0000_0001; // 0
+    right = 32'h0000_0000; // 0 
+    control = 4'b0000; // 0 & 0 should be 0
+    #10;
+    
+    // Test case 2: ADD
+    left = 32'h0000_0045; // d69
+    right = 32'h0000_001F; // d31
+	control = 4'b0010; // 69 + 31 should be 100
+    #10;
+    
+    // Test case 3: LESS THAN
+    left = 32'h0000_0005; // h5
+    right = 32'h0000_001E; // h30
+    control = 4'b0111; // 5 < 30 should be 1
+    #10;
+    
+    
+    $finish;
+  end
 
-			$finish;
-		end
+  // Always block to display outputs
+  always @(out) begin
+    $display("control = %b, left = %d, right = %d, out = %d", control, left, right, out);
+  end
+
 endmodule
-
