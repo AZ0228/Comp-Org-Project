@@ -2,7 +2,7 @@ module ALU(
     input [31:0] left,
     input [31:0] right,
     input [3:0] control, 
-    output [31:0] out
+    output reg [31:0] out
 );
 
 always @(left, right, control)
