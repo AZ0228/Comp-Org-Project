@@ -6,8 +6,8 @@ module single_port_sync_ram
         parameter LENGTH = (1<<ADDR_WIDTH)
     )
   (   input clk,
-      input [ADDR_WIDTH-1:0] addr,  // Adjusted address width
-      input [DATA_WIDTH-1:0] data,  // Adjusted data width
+      inout [ADDR_WIDTH-1:0] addr,  // Adjusted address width
+      inout [DATA_WIDTH-1:0] data,  // Adjusted data width
       input cs,
       input we,
       input oe
