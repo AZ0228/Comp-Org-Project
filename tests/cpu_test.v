@@ -16,11 +16,11 @@ module test_cpu;
     integer i;
     reg [ADDR_WIDTH-1:0] MAR;
     wire [DATA_WIDTH-1:0] data;
-    reg [DATA_WIDTH:-1:0] testbench_data;
+    reg [DATA_WIDTH-1:0] testbench_data;
     assign data = !oe ? testbench_data : 'hz;
 
     single_port_sync_ram_large #(.DATA_WIDTH(DATA_WIDTH)) ram(
-    .clock(clock),
+    .clk(clock),
     .addr(MAR),
     .data(data[DATA_WIDTH-1:0]),
     .cs_input(cs),
@@ -33,14 +33,15 @@ module test_cpu;
     reg [31:0] alu_out;
     reg [3:0] alu_select;
 
-    alu alu32(
+    ALU alu32(
     .left(left),
     .right(right), // 32-bit ALU inputs
-    .alu_sel(select), // 4-bit ALU mode select
-    .alu_out(out) // 32-bit ALU output
+    .control(alu_select), // 4-bit ALU mode select
+    .out(out) // 32-bit ALU output
     );
 
     // Maybe initialize PC here
+    reg[31:0] PC;
 
     reg [31:0] program_counter = 'h100;
     reg [31:0] instruction_register = 'h0;
@@ -110,7 +111,7 @@ module test_cpu;
             @(posedge clock) AC <= alu_out;
         end
         4'b0100: begin // SW 
-            @(posedge clock) PC <= pc - 1;
+            @(posedge clock) PC <= PC - 1;
     	end
 	4'b0101: begin // CLEAR 
 		@(posedge clock)
