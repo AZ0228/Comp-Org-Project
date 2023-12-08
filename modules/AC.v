@@ -6,6 +6,8 @@ module AC(
     output reg [31:0] out
 );
 
+reg [31:0] acc;
+
 localparam NO_OP = 1'hF;
 localparam LOAD = 1'h2;
 localparam ADD = 1'h0;
