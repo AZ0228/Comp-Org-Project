@@ -1,4 +1,4 @@
-module ALU(
+module alu(
     input [31:0] left,
     input [31:0] right,
     input [3:0] control, 
