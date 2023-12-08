@@ -1,7 +1,9 @@
-add - 0
-halt - 1
-load - 2
-store - 3
-clear - 4
-skip - 5
-jump - 6 
+instruction - decimal - binary
+------------------------------
+add - 0 - 0000
+halt - 1 - 0001
+load - 2 - 0010
+store - 3 - 0011
+clear - 4 - 0100
+skip - 5 - 0101
+jump - 6 - 0110
