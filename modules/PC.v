@@ -2,7 +2,7 @@ module program_counter(
     input clock, // clock input
     input reset, // reset input
     input [31:0] pc_in,
-    output [31:0] pc_out,
+    output [31:0] pc_out
     );
 
 

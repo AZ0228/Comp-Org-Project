@@ -2,7 +2,7 @@
 
 module single_port_sync_ram
     # ( parameter ADDR_WIDTH = 28, // Adjusted address width
-        parameter DATA_WIDTH = 16,  // Adjusted data width
+        parameter DATA_WIDTH = 8,  // Adjusted data width
         parameter LENGTH = (1<<ADDR_WIDTH)
     )
   (   input clk,
