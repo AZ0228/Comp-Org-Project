@@ -1,7 +1,7 @@
 `timescale 1 ns / 1 ps
 
 module single_port_sync_ram
-    # ( parameter ADDR_WIDTH = 28, // Adjusted address width
+    # ( parameter ADDR_WIDTH = 26, // Adjusted address width
         parameter DATA_WIDTH = 8,  // Adjusted data width
         parameter LENGTH = (1<<ADDR_WIDTH)
     )

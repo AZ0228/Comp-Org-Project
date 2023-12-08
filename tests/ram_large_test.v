@@ -2,7 +2,7 @@
 
 module test_ram_large;
   // Adjusting parameters to match the single_port_sync_ram_large module
-  parameter ADDR_WIDTH = 30;
+  parameter ADDR_WIDTH = 28;
   parameter DATA_WIDTH = 32;
 
   reg clk;
