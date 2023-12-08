@@ -3,7 +3,7 @@
 
 
 module decoder
-  # (parameter ENCODE_WIDTH = 2,
+  # (parameter ENCODE_WIDTH = 1,
      parameter DECODE_WIDTH = 2**ENCODE_WIDTH
     )
 
