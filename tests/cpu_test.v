@@ -6,10 +6,14 @@ module test_cpu;
     
     reg osc;
     localparam period = 10;
+    
     wire clock;
+    assign clk = osc;
+
     reg cs; // chip select
     reg we; // write enable
     reg oe; // out enable
+    integer i;
     reg [ADDR_WIDTH-1:0] MAR;
     wire [DATA_WIDTH-1:0] data;
     reg [DATA_WIDTH:-1:0] testbench_data;
