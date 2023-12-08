@@ -89,35 +89,35 @@ module test_cpu;
         // decode & execute
 
         case(instruction_register[31:28]) // first 4 bits
-        4'b0001: begin //add
+        4'b0001: begin // ADD
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= data;
             @(posedge clock) AC <= memory_buffer_register;
         end
-        4'b0010: begin 
+        4'b0010: begin // HALT (this one needs to be changed)
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= AC;
             @(posedge clock) we <= 1; oe <= 0; testbench_data <= memory_buffer_register;
         end
-        4'b0011: begin
+        4'b0011: begin // LW
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= data;
             @(posedge clock) alu_select <= 'b0010; left <= AC; right <= memory_buffer_register;
             @(posedge clock) AC <= alu_out;
         end
-        4'b0111: begin
+        4'b0100: begin // SW 
             @(posedge clock) PC <= pc - 1;
     	end
-	4'b1000: begin
+	4'b0101: begin // CLEAR 
 		@(posedge clock)
 		if(instruction_register[27:26] == 2'b01 && AC == 0) PC <= PC + 1; // I don't know why we are looking at these bits in the instruction register or what they mean.
 		else if (instruction_register[27:26] == 2'b00 && AC < 0) PC <= PC + 1;
 		else if (instruction_register[27:26] == 2'b10 && AC > 0) PC <= PC + 1;
 	end
-	4'b1001: begin
+	4'b1001: begin // SKIP
 		@(posedge clock)) PC <= instruction_register[27:0];
 	end
-	4'b1010: begin
+	4'b1010: begin // JUMP
 		@(posedge clock) AC <= 0;
 	end
 	endcase
@@ -127,9 +127,4 @@ end
 
 #20 $finish;
 end
-endmodule
-
-
-
-
 endmodule
