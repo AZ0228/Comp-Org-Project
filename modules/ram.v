@@ -14,7 +14,7 @@ module single_port_sync_ram
   );
 
   reg [DATA_WIDTH-1:0] tmp_data;
-  reg [DATA_WIDTH-1:0] mem[LENGTH]; // 1 << 30 = 60
+  reg [DATA_WIDTH-1:0] mem[LENGTH]; 
 
   always @ (posedge clk) begin
     if (cs & we)

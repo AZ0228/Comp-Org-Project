@@ -21,7 +21,7 @@ module test_cpu;
 
   single_port_sync_ram_large  #(.DATA_WIDTH(DATA_WIDTH)) ram
   (   .clk(clk),
-   .addr(MAR),
+      .addr(MAR),
       .data(data[DATA_WIDTH-1:0]),
       .cs_input(cs),
       .we(we),
