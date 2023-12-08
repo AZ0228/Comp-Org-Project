@@ -1,6 +1,7 @@
 // Adopted from https://circuitcove.com/design-examples-decoders/
 `timescale 1 ns / 1 ps
 
+
 module decoder
   # (parameter ENCODE_WIDTH = 2,
      parameter DECODE_WIDTH = 2**ENCODE_WIDTH
