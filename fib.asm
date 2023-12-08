@@ -1,26 +1,31 @@
-.data
-    fib0: .word 0             # Initial Fibonacci numbers
-    fib1: .word 1
+ORG 100
+Loop, Load R 
+    Add A 
+    Store R 
+    Load A 
+    Store B     
+    Load R 
+    Add B
+    Store R 
+    Load B 
+    Store R 
+    Load C 
+    Add Neg1 
+    Store C 
+    Load C 
+    Skip 2
+    Jump Loop 
+Halt
+A,  Dec 0 // fib0
+B,  Dec 1 // fib1
+R,  Dec 0 // result
+C,  Dec 10 // counter/loop control, 10 loops excluding 0 and 1
+Neg1, Dec -1 // used to decrement
 
-.text
-.globl main
-
-
-main:
-    li $t0, 0                # t0 will hold the lower Fibonacci number, initialized to F0
-    li $t1, 1                # t1 will hold the higher Fibonacci number, initialized to F1
-    li $t2, 10               # t2 will count down from 10 to 0 (to calculate 11th Fibonacci number)
-
-loop:
-    add $t3, $t0, $t1        # t3 = t0 + t1, calculate next Fibonacci number
-    move $t0, $t1            # move t1 to t0 for next iteration
-    move $t1, $t3            # move t3 to t1 for next iteration
-
-    sub $t2, $t2, 1          # decrement the counter
-    bgtz $t2, loop           # if the counter is greater than 0, loop again
-
-    # At this point, $t1 contains the 11th Fibonacci number
-    # You can now store it or print it as needed
-
-    li $v0, 10               # exit program
-    syscall
+'
+for(i = 0; i < 10; i++) {
+    R = A + B;
+    A = B;
+    B = R;
+}
+'
