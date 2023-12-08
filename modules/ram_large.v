@@ -1,11 +1,10 @@
-`include "ram.v"
-`include "decoder.v"
+
 
 `timescale 1 ns / 1 ps
 
 module single_port_sync_ram_large
   # ( parameter ADDR_WIDTH = 30,  // Updated address width for 1 GiB
-      parameter DATA_WIDTH = 32,  // Data width remains 32 bits
+      parameter DATA_WIDTH = 16,  // Data width remains 32 bits
       parameter DATA_WIDTH_SHIFT = 1 // Log base 2 of 4, since we're using 4 modules
     )
   (   input clk,

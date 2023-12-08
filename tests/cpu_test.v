@@ -115,7 +115,7 @@ module test_cpu;
 		else if (instruction_register[27:26] == 2'b10 && AC > 0) PC <= PC + 1;
 	end
 	4'b1001: begin // SKIP
-		@(posedge clock)) PC <= instruction_register[27:0];
+		@(posedge clock) PC <= instruction_register[27:0];
 	end
 	4'b1010: begin // JUMP
 		@(posedge clock) AC <= 0;
