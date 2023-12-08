@@ -21,3 +21,11 @@ B,  Dec 1 // fib1
 R,  Dec 0 // result
 C,  Dec 10 // counter/loop control, 10 loops excluding 0 and 1
 Neg1, Dec -1 // used to decrement
+
+'
+for(i = 0; i < 10; i++) {
+    R = A + B;
+    A = B;
+    B = R;
+}
+'
