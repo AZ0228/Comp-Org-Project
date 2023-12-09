@@ -38,6 +38,10 @@ module test_cpu;
     wire [31:0] alu_out;
     reg [3:0] alu_select;
 
+    //THIS FOR DEBUHG
+    reg [31:0] master_output;
+
+
     alu alu32(
     .left(left),
     .right(right), // 32-bit ALU inputs
@@ -62,25 +66,28 @@ module test_cpu;
 
     // Fibonnaci sequence program
 
-    @(posedge clock) MAR <= 'h0000100; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000110;
-    @(posedge clock) MAR <= 'h0000101; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h0000010F;
-    @(posedge clock) MAR <= 'h0000102; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h30000110;
-    @(posedge clock) MAR <= 'h0000103; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h2000010F;
-    @(posedge clock) MAR <= 'h0000104; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h3000010E;
-    @(posedge clock) MAR <= 'h0000105; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000110;
-    @(posedge clock) MAR <= 'h0000106; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h3000010F;
-    @(posedge clock) MAR <= 'h0000107; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000111;
-    @(posedge clock) MAR <= 'h0000108; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h00000112;
-    @(posedge clock) MAR <= 'h0000109; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h30000111;
-    @(posedge clock) MAR <= 'h000010A; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000111;
-    @(posedge clock) MAR <= 'h000010B; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h50000002;
-    @(posedge clock) MAR <= 'h000010C; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h60000100;
-    @(posedge clock) MAR <= 'h000010D; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h10000000;
-    @(posedge clock) MAR <= 'h000010E; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd0;
-    @(posedge clock) MAR <= 'h000010F; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd1;
-    @(posedge clock) MAR <= 'h0000110; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd0;
-    @(posedge clock) MAR <= 'h0000111; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd9;
-    @(posedge clock) MAR <= 'h0000112; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'hFFFFFFFF;
+    @(posedge clock) MAR <= 'h0000100; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h2000010E;
+    @(posedge clock) MAR <= 'h0000101; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h2000010F;
+    @(posedge clock) MAR <= 'h0000102; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h0000010E;
+    @(posedge clock) MAR <= 'h0000103; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h30000110;
+    @(posedge clock) MAR <= 'h0000104; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h2000010F;
+    @(posedge clock) MAR <= 'h0000105; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h3000010E;
+    @(posedge clock) MAR <= 'h0000106; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000110;
+    @(posedge clock) MAR <= 'h0000107; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h3000010F;
+    @(posedge clock) MAR <= 'h0000108; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000111;
+    @(posedge clock) MAR <= 'h0000109; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h00000112;
+    @(posedge clock) MAR <= 'h000010A; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h30000111;
+    @(posedge clock) MAR <= 'h000010B; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h20000111;
+    @(posedge clock) MAR <= 'h000010C; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h50000002;
+    @(posedge clock) MAR <= 'h000010D; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h60000100;
+    @(posedge clock) MAR <= 'h000010E; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'h10000000;
+    @(posedge clock) MAR <= 'h000010F; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd0;
+    @(posedge clock) MAR <= 'h0000110; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd1;
+    @(posedge clock) MAR <= 'h0000111; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd0;
+    @(posedge clock) MAR <= 'h0000112; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'd9;
+    @(posedge clock) MAR <= 'h0000113; we <= 1; cs <= 1; oe <= 0; testbench_data <= 'hFFFFFFFF;
+
+
 
 
     @(posedge clock) program_counter <= 'h100;
@@ -114,6 +121,7 @@ module test_cpu;
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= AC;
             @(posedge clock) we <= 1; oe <= 0; testbench_data <= memory_buffer_register;
+            @(posedge clock) we <= 1; oe <= 0; master_output <= memory_buffer_register;
         end
         4'b0100: begin // CLEAR
             @(posedge clock) AC <= 0;
@@ -129,7 +137,7 @@ module test_cpu;
         4'b0111: begin // ADDI (4 bit immediate value)
             @(posedge clock) memory_buffer_register <= data;
             @(posedge clock) alu_select <= 'b0010; left <= AC; right <= instruction_register[27:20];
-            @(posedge clock)AC <= alu_out;
+            @(posedge clock) AC <= alu_out;
         end
 	endcase
 end
