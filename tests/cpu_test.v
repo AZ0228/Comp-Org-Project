@@ -13,7 +13,7 @@ module test_cpu;
     localparam period = 10;
     
     wire clock;
-    assign clk = osc;
+    assign clock = osc;
 
     reg cs; // chip select
     reg we; // write enable
@@ -47,6 +47,8 @@ module test_cpu;
 
     // Maybe initialize PC here
     reg[31:0] PC;
+
+
 
     reg [31:0] program_counter = 'h100;
     reg [31:0] instruction_register = 'h0;
