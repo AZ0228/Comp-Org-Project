@@ -1,3 +1,5 @@
+`timescale 1 ns / 1 ps
+
 module direct_mapped_cache #(
     parameter ADDR_WIDTH = 28,
     parameter DATA_WIDTH = 32,
