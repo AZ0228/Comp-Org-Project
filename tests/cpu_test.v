@@ -38,8 +38,7 @@ module test_cpu;
     wire [31:0] alu_out;
     reg [3:0] alu_select;
 
-    //THIS FOR DEBUHG
-    reg [31:0] master_output;
+    //reg [31:0] master_output; this is to view every store operation
 
 
     alu alu32(
@@ -121,7 +120,7 @@ module test_cpu;
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= AC;
             @(posedge clock) we <= 1; oe <= 0; testbench_data <= memory_buffer_register;
-            @(posedge clock) we <= 1; oe <= 0; master_output <= memory_buffer_register;
+            //@(posedge clock) we <= 1; oe <= 0; master_output <= memory_buffer_register;
         end
         4'b0100: begin // CLEAR
             @(posedge clock) AC <= 0;
