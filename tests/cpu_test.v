@@ -1,3 +1,8 @@
+`include "modules/alu.v"
+`include "modules/ram.v"
+`include "modules/ram_large.v"
+`include "modules/decoder.v"
+
 `timescale 1 ns / 1 ps
 
 module test_cpu;
@@ -30,14 +35,14 @@ module test_cpu;
 
     reg [31:0] left;
     reg [31:0] right;
-    reg [31:0] alu_out;
+    wire [31:0] alu_out;
     reg [3:0] alu_select;
 
-    ALU alu32(
+    alu alu32(
     .left(left),
     .right(right), // 32-bit ALU inputs
     .control(alu_select), // 4-bit ALU mode select
-    .out(out) // 32-bit ALU output
+    .out(alu_out) // 32-bit ALU output
     );
 
     // Maybe initialize PC here
@@ -97,34 +102,38 @@ module test_cpu;
         4'b0000: begin // ADD
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= data;
+            @(posedge clock) alu_select <= 'b0010; left <= AC; right <= memory_buffer_register;
+            @(posedge clock) AC <= alu_out;
+        end
+        4'b0001: begin // HALT
+            @(posedge clock) PC <= PC - 1;
+        end
+        4'b0010: begin // LOAD WORD
+            @(posedge clock) MAR <= instruction_register[27:0];
+            @(posedge clock) memory_buffer_register <= data;
             @(posedge clock) AC <= memory_buffer_register;
         end
-        4'b0001: begin // HALT (this one needs to be changed)
+        4'b0011: begin // STORE WORD
             @(posedge clock) MAR <= instruction_register[27:0];
             @(posedge clock) memory_buffer_register <= AC;
             @(posedge clock) we <= 1; oe <= 0; testbench_data <= memory_buffer_register;
         end
-        4'b0010: begin // LW
-            @(posedge clock) MAR <= instruction_register[27:0];
-            @(posedge clock) memory_buffer_register <= data;
-            @(posedge clock) alu_select <= 'b0010; left <= AC; right <= memory_buffer_register;
-            @(posedge clock) AC <= alu_out;
+        4'b0100: begin // CLEAR
+            @(posedge clock) AC <= 0;
         end
-        4'b0011: begin // SW 
-            @(posedge clock) PC <= PC - 1;
-    	end
-	4'b0100: begin // CLEAR 
-		@(posedge clock)
-		if(instruction_register[27:26] == 2'b01 && AC == 0) PC <= PC + 1; // I don't know why we are looking at these bits in the instruction register or what they mean.
-		else if (instruction_register[27:26] == 2'b00 && AC < 0) PC <= PC + 1;
-		else if (instruction_register[27:26] == 2'b10 && AC > 0) PC <= PC + 1;
-	end
-	4'b0101: begin // SKIP
-		@(posedge clock) PC <= instruction_register[27:0];
-	end
-	4'b0110: begin // JUMP
-		@(posedge clock) AC <= 0;
-	end
+        4'b0101: begin // SKIP
+            @(posedge clock) if(instruction_register[2:0] == 3'b010 && AC == 0) PC <= PC + 1;
+            else if (instruction_register[2:0] == 3'b000 && AC < 0) PC <= PC + 1;
+            else if (instruction_register[2:0] == 3'b100 && AC > 0) PC <= PC + 1;
+        end
+        4'b0110: begin // JUMP
+            @(posedge clock) PC <= instruction_register[27:0];
+        end
+        4'b0111: begin // ADDI (4 bit immediate value)
+            @(posedge clock) memory_buffer_register <= data;
+            @(posedge clock) alu_select <= 'b0010; left <= AC; right <= instruction_register[27:20];
+            @(posedge clock)AC <= alu_out;
+        end
 	endcase
 end
 @(posedge clock) MAR <= 'h10D; we <= 0; cs <= 1; oe <= 1;

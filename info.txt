@@ -8,14 +8,7 @@ store - 3 - 0011
 clear - 4 - 0100
 skip - 5 - 0101
 jump - 6 - 0110
-=======
-add - 1    | 0001
-halt - 2   | 0010
-load - 3   | 0011
-store - 4  | 0100
-clear - 5  | 0101
-skip - 6   | 0110
-jump - 7   | 0111
+addi - 7 - 0111
 
 Memory:
 
